@@ -1,0 +1,1836 @@
+Intel(R) Advisor can now assist with vectorization and show optimization
+  report messages with your source code.
+See "https://software.intel.com/en-us/intel-advisor-xe" for details.
+
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINING OPTION VALUES:
+  -inline-factor: 100
+  -inline-min-size: 30
+  -inline-max-size: 230
+  -inline-max-total-size: 2000
+  -inline-max-per-routine: disabled
+  -inline-max-per-compile: disabled
+
+
+Begin optimization report for: OCEAN
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (OCEAN) [1] ocean.f90(1,9)
+  -> (16,10) MOD_DATA::ALLOCATE_INIT_DATA
+  -> (24,10) MPDATA_ADIFF::MPDATA_ADIFF_TILE
+  -> (36,10) MOD_DATA::VERIFY_DATA
+  -> (38,10) MOD_DATA::DEALLOCATE_DATA
+
+
+    Report from: Code generation optimizations [cg]
+
+ocean.f90(1,9):remark #34051: REGISTER ALLOCATION : [MAIN__] ocean.f90:1
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   13[ rax rdx rcx rbx rsi rdi r8-r9 r12 r15 zmm0-zmm2]
+        
+    Routine temporaries
+        Total         :     134
+            Global    :      14
+            Local     :     120
+        Regenerable   :     114
+        Spilled       :       3
+        
+    Routine stack
+        Variables     :     204 bytes*
+            Reads     :       2 [0.00e+00 ~ 0.0%]
+            Writes    :      28 [2.60e+01 ~ 16.8%]
+        Spills        :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: MPDATA_ADIFF::MPDATA_ADIFF_TILE
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (MPDATA_ADIFF::MPDATA_ADIFF_TILE) [2] mpdata_adiff.f90(12,12)
+  -> (188,14) MPDATA_ADIFF::STENCIL
+
+
+    Report from: OpenMP optimizations [openmp]
+
+mpdata_adiff.f90(189:7-189:7):OMP:mpdata_adiff_mp_mpdata_adiff_tile_:  OpenMP multithreaded code generation for BARRIER was successful
+mpdata_adiff.f90(190:7-190:7):OMP:mpdata_adiff_mp_mpdata_adiff_tile_:  OpenMP multithreaded code generation for MASTER was successful
+mpdata_adiff.f90(185:7-185:7):OMP:mpdata_adiff_mp_mpdata_adiff_tile_:  OpenMP DEFINED REGION WAS PARALLELIZED
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at mpdata_adiff.f90(76,5)
+<Peeled loop for vectorization>
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(76,5)
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(76,5)
+<Remainder loop for vectorization>
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(77,5)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between UCOUNTER(INDVAL) (79:53) and UCOUNTER(INDVAL) (79:53)
+   remark #25439: unrolled with remainder by 2  
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(77,5)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(87,5)
+<Distributed chunk1>
+   remark #25426: Loop Distributed (2 way) 
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between USTP(I) (88:9) and USTP(I-1) (88:9)
+   remark #25439: unrolled with remainder by 2  
+   remark #25456: Number of Array Refs Scalar Replaced In Loop: 2
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(87,5)
+<Remainder, Distributed chunk1>
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(87,5)
+<Peeled loop for vectorization, Distributed chunk2>
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(87,5)
+<Distributed chunk2>
+   remark #15301: PARTIAL LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(87,5)
+<Remainder loop for vectorization, Distributed chunk2>
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(94,5)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed ANTI dependence between USTP2(INDVAL) (97:9) and USTP2(INDVAL) (99:9)
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(112,5)
+<Peeled loop for vectorization>
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(112,5)
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(112,5)
+<Remainder loop for vectorization>
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(114,5)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between TMP_CTR(UCOUNTER(I)+1) (115:9) and TMP_CTR(UCOUNTER(I)+1) (115:9)
+   remark #25439: unrolled with remainder by 2  
+   remark #25456: Number of Array Refs Scalar Replaced In Loop: 2
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(114,5)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(118,5)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between at (119:9) and at (119:9)
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(125,5)
+<Distributed chunk1>
+   remark #25426: Loop Distributed (2 way) 
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between FT_STP(I) (126:9) and FT_STP(I-1) (126:9)
+   remark #25439: unrolled with remainder by 2  
+   remark #25456: Number of Array Refs Scalar Replaced In Loop: 2
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(125,5)
+<Remainder, Distributed chunk1>
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(125,5)
+<Peeled loop for vectorization, Distributed chunk2>
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(125,5)
+<Distributed chunk2>
+   remark #15301: PARTIAL LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(125,5)
+<Remainder loop for vectorization, Distributed chunk2>
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(136,5)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed ANTI dependence between FT_STP2(INDVAL) (138:9) and FT_STP2(INDVAL) (142:9)
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(150,5)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between U_OFFSET(I) (151:9) and U_OFFSET(I-16) (151:9)
+   remark #25439: unrolled with remainder by 2  
+   remark #25456: Number of Array Refs Scalar Replaced In Loop: 2
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(150,5)
+<Remainder>
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(160,5)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed OUTPUT dependence between VEC_UCOEFF(CUR_IND) (167:21) and VEC_UCOEFF(CUR_IND) (172:21)
+
+   LOOP BEGIN at mpdata_adiff.f90(161,9)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #15346: vector dependence: assumed OUTPUT dependence between VEC_UCOEFF(CUR_IND) (167:21) and VEC_UCOEFF(CUR_IND) (172:21)
+
+      LOOP BEGIN at mpdata_adiff.f90(162,13)
+         remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+         remark #15346: vector dependence: assumed OUTPUT dependence between VEC_UCOEFF(CUR_IND) (167:21) and VEC_UCOEFF(CUR_IND) (172:21)
+         remark #25436: completely unrolled by 16  
+      LOOP END
+   LOOP END
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+mpdata_adiff.f90(43,55):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (32, 0)
+mpdata_adiff.f90(43,43):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (32, 0)
+mpdata_adiff.f90(43,28):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (32, 0)
+mpdata_adiff.f90(42,29):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (32, 0)
+mpdata_adiff.f90(41,64):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (32, 0)
+mpdata_adiff.f90(41,52):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (32, 0)
+mpdata_adiff.f90(41,41):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (32, 0)
+mpdata_adiff.f90(41,29):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (32, 0)
+mpdata_adiff.f90(40,48):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (32, 0)
+mpdata_adiff.f90(40,29):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (32, 0)
+mpdata_adiff.f90(37,39):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (32, 0)
+mpdata_adiff.f90(37,28):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (32, 0)
+mpdata_adiff.f90(36,29):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (32, 0)
+mpdata_adiff.f90(35,29):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (32, 0)
+mpdata_adiff.f90(34,29):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (32, 0)
+mpdata_adiff.f90(12,12):remark #34051: REGISTER ALLOCATION : [mpdata_adiff_mp_mpdata_adiff_tile_] mpdata_adiff.f90:12
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   17[ rax rdx rcx rbx rsi rdi r8-r15 zmm0-zmm2]
+        
+    Routine temporaries
+        Total         :    1584
+            Global    :     303
+            Local     :    1281
+        Regenerable   :     290
+        Spilled       :     105
+        
+    Routine stack
+        Variables     :    1556 bytes*
+            Reads     :      86 [6.91e+01 ~ 1.1%]
+            Writes    :     221 [2.05e+02 ~ 3.2%]
+        Spills        :     880 bytes*
+            Reads     :     147 [8.95e+02 ~ 14.0%]
+            Writes    :     118 [2.29e+02 ~ 3.6%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: MPDATA_ADIFF::STENCIL
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (MPDATA_ADIFF::STENCIL) [3] mpdata_adiff.f90(203,12)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at mpdata_adiff.f90(396,5)
+<Distributed chunk1>
+   remark #25045: Fused Loops: ( 396 398 399 400 401 402 403 404 405 406 407 )
+
+   remark #25426: Loop Distributed (2 way) 
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(398,5)
+   remark #25046: Loop lost in Fusion 
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(399,5)
+   remark #25046: Loop lost in Fusion 
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(400,5)
+   remark #25046: Loop lost in Fusion 
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(401,5)
+   remark #25046: Loop lost in Fusion 
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(402,5)
+   remark #25046: Loop lost in Fusion 
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(403,5)
+   remark #25046: Loop lost in Fusion 
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(404,5)
+   remark #25046: Loop lost in Fusion 
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(405,5)
+   remark #25046: Loop lost in Fusion 
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(406,5)
+   remark #25046: Loop lost in Fusion 
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(407,5)
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(396,5)
+<Distributed chunk2>
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at mpdata_adiff.f90(460,5)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at mpdata_adiff.f90(473,9)
+      remark #15300: LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at mpdata_adiff.f90(473,9)
+   <Remainder loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at mpdata_adiff.f90(474,9)
+      remark #15300: LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at mpdata_adiff.f90(474,9)
+   <Remainder loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at mpdata_adiff.f90(475,9)
+      remark #15300: LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at mpdata_adiff.f90(475,9)
+   <Remainder loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at mpdata_adiff.f90(476,9)
+      remark #15300: LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at mpdata_adiff.f90(476,9)
+   <Remainder loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at mpdata_adiff.f90(477,9)
+      remark #15300: LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at mpdata_adiff.f90(477,9)
+   <Remainder loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at mpdata_adiff.f90(479,9)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at mpdata_adiff.f90(480,13)
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(480,13)
+      <Remainder loop for vectorization>
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(481,13)
+      <Distributed chunk1>
+         remark #25045: Fused Loops: ( 481 482 483 484 485 486 487 )
+
+         remark #25426: Loop Distributed (4 way) 
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(482,13)
+         remark #25046: Loop lost in Fusion 
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(483,13)
+         remark #25046: Loop lost in Fusion 
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(484,13)
+         remark #25046: Loop lost in Fusion 
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(485,13)
+         remark #25046: Loop lost in Fusion 
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(486,13)
+         remark #25046: Loop lost in Fusion 
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(487,13)
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(481,13)
+      <Remainder loop for vectorization, Distributed chunk1>
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(481,13)
+      <Distributed chunk2>
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(481,13)
+      <Remainder loop for vectorization, Distributed chunk2>
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(481,13)
+      <Distributed chunk3>
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(481,13)
+      <Remainder loop for vectorization, Distributed chunk3>
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(481,13)
+      <Distributed chunk4>
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(481,13)
+      <Remainder loop for vectorization, Distributed chunk4>
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(488,23)
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(488,23)
+      <Remainder loop for vectorization>
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(489,13)
+      <Distributed chunk1>
+         remark #25045: Fused Loops: ( 489 490 491 )
+
+         remark #25426: Loop Distributed (2 way) 
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(490,13)
+         remark #25046: Loop lost in Fusion 
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(491,13)
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(489,13)
+      <Remainder loop for vectorization, Distributed chunk1>
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(489,13)
+      <Distributed chunk2>
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(489,13)
+      <Remainder loop for vectorization, Distributed chunk2>
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(492,23)
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(492,23)
+      <Remainder loop for vectorization>
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(494,13)
+         remark #15542: loop was not vectorized: inner loop was already vectorized
+
+         LOOP BEGIN at mpdata_adiff.f90(536,17)
+            remark #25045: Fused Loops: ( 536 537 538 540 541 543 )
+
+            remark #15301: FUSED LOOP WAS VECTORIZED
+            remark #25456: Number of Array Refs Scalar Replaced In Loop: 1
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(537,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(538,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(540,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(541,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(543,17)
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(565,17)
+            remark #25045: Fused Loops: ( 565 567 569 571 572 573 575 576 577 578 580 581 582 583 584 585 586 587 589 590 591 593 595 598 599 600 601 602 603 604 605 607 608 609 610 611 612 614 618 621 625 626 627 )
+
+            remark #15301: FUSED LOOP WAS VECTORIZED
+            remark #25456: Number of Array Refs Scalar Replaced In Loop: 128
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(567,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(569,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(571,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(572,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(573,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(575,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(576,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(577,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(578,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(580,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(581,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(582,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(583,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(584,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(585,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(586,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(587,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(589,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(590,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(591,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(593,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(595,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(598,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(599,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(600,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(601,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(602,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(603,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(604,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(605,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(607,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(608,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(609,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(610,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(611,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(612,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(614,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(618,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(621,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(625,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(626,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(627,17)
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(521,17)
+            remark #15300: LOOP WAS VECTORIZED
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(522,17)
+            remark #25045: Fused Loops: ( 522 523 524 525 526 528 )
+
+            remark #15301: FUSED LOOP WAS VECTORIZED
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(523,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(524,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(525,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(526,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(528,17)
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(529,17)
+            remark #25045: Fused Loops: ( 529 530 531 533 534 535 )
+
+            remark #15301: FUSED LOOP WAS VECTORIZED
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(530,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(531,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(533,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(534,17)
+            remark #25046: Loop lost in Fusion 
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(535,17)
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(546,21)
+            remark #25045: Fused Loops: ( 546 547 548 549 )
+
+            remark #15301: FUSED LOOP WAS VECTORIZED
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(547,21)
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(548,21)
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(549,21)
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(551,21)
+            remark #25045: Fused Loops: ( 551 552 553 554 )
+
+            remark #15301: FUSED LOOP WAS VECTORIZED
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(552,21)
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(553,21)
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(554,21)
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(558,21)
+            remark #25045: Fused Loops: ( 558 559 )
+
+            remark #15301: FUSED LOOP WAS VECTORIZED
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(559,21)
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(561,21)
+            remark #25045: Fused Loops: ( 561 562 )
+
+            remark #15301: FUSED LOOP WAS VECTORIZED
+         LOOP END
+
+         LOOP BEGIN at mpdata_adiff.f90(562,21)
+         LOOP END
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(630,13)
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(630,13)
+      <Remainder loop for vectorization>
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(639,13)
+         remark #15542: loop was not vectorized: inner loop was already vectorized
+
+         LOOP BEGIN at mpdata_adiff.f90(640,17)
+            remark #15542: loop was not vectorized: inner loop was already vectorized
+
+            LOOP BEGIN at mpdata_adiff.f90(642,21)
+               remark #15300: LOOP WAS VECTORIZED
+            LOOP END
+         LOOP END
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(647,13)
+         remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+         remark #25439: unrolled with remainder by 2  
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(647,13)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(653,17)
+         remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
+         remark #25439: unrolled with remainder by 2  
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(653,17)
+      <Remainder>
+      LOOP END
+
+      LOOP BEGIN at mpdata_adiff.f90(656,13)
+         remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+         remark #15346: vector dependence: assumed FLOW dependence between UA(I,J,K) (696:21) and NEW_DM(L) (703:25)
+
+         LOOP BEGIN at mpdata_adiff.f90(701,21)
+            remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+            remark #15346: vector dependence: assumed ANTI dependence between NEW_DN(L) (703:60) and UA(I,J,K) (703:25)
+         LOOP END
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at mpdata_adiff.f90(466,13)
+      remark #15300: LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at mpdata_adiff.f90(468,13)
+      remark #15300: LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at mpdata_adiff.f90(470,9)
+      remark #15300: LOOP WAS VECTORIZED
+   LOOP END
+
+   LOOP BEGIN at mpdata_adiff.f90(471,20)
+      remark #15300: LOOP WAS VECTORIZED
+   LOOP END
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+mpdata_adiff.f90(521,17):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(521,17):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(521,17):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(521,17):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(521,17):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(521,17):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(521,17):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(521,17):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(521,17):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(521,17):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(521,17):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(521,17):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(523,17):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(523,17):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(523,17):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(525,17):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(525,17):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(525,17):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(528,17):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(528,17):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(528,17):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(523,17):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(523,17):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(523,17):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(525,17):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(525,17):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(525,17):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(528,17):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(528,17):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(528,17):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(523,17):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(523,17):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(523,17):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(525,17):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(525,17):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(525,17):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(528,17):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(528,17):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(528,17):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(523,17):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(523,17):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(523,17):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(525,17):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(525,17):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(525,17):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(528,17):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(528,17):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(528,17):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(530,17):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(530,17):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(530,17):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(533,17):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(533,17):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(533,17):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(530,17):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(530,17):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(530,17):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(533,17):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(533,17):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(533,17):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(530,17):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(530,17):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(530,17):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(533,17):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(533,17):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(533,17):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(530,17):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(530,17):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(530,17):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(533,17):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(533,17):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(533,17):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(537,17):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(537,17):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(537,17):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(540,17):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(540,17):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(540,17):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(546,21):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(546,21):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(546,21):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(548,21):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(548,21):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(548,21):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(546,21):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(546,21):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(546,21):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(548,21):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(548,21):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(548,21):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(546,21):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(546,21):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(546,21):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(548,21):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(548,21):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(548,21):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(546,21):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(546,21):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(546,21):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(548,21):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(548,21):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(548,21):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(558,21):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(558,21):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(558,21):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(558,21):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(558,21):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(558,21):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(558,21):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(558,21):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(558,21):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(558,21):remark #34060: alignment of adjacent dense (unit-strided stencil) loads is (alignment, offset): (8, 0)
+mpdata_adiff.f90(558,21):remark #34050: optimization of adjacent dense (unit-strided stencil) loads seems unprofitable.
+mpdata_adiff.f90(558,21):remark #34055: adjacent dense (unit-strided stencil) loads are not optimized. Details: stride { 8 }, step { 8 }, types { F64-V256, F64-V256 }, number of elements { 4 }, select mask { 0x000000003 }.
+mpdata_adiff.f90(382,30):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (64, 0)
+mpdata_adiff.f90(381,30):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (64, 0)
+mpdata_adiff.f90(380,30):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (64, 0)
+mpdata_adiff.f90(379,30):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (64, 0)
+mpdata_adiff.f90(378,30):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (64, 0)
+mpdata_adiff.f90(377,30):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (64, 0)
+mpdata_adiff.f90(376,30):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (64, 0)
+mpdata_adiff.f90(375,30):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (64, 0)
+mpdata_adiff.f90(374,30):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (64, 0)
+mpdata_adiff.f90(373,30):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (64, 0)
+mpdata_adiff.f90(372,30):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (64, 0)
+mpdata_adiff.f90(371,30):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (64, 0)
+mpdata_adiff.f90(370,30):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (64, 0)
+mpdata_adiff.f90(362,30):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (64, 0)
+mpdata_adiff.f90(361,30):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (64, 0)
+mpdata_adiff.f90(360,30):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (64, 0)
+mpdata_adiff.f90(359,30):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (64, 0)
+mpdata_adiff.f90(358,30):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (64, 0)
+mpdata_adiff.f90(357,30):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (64, 0)
+mpdata_adiff.f90(203,12):remark #34051: REGISTER ALLOCATION : [mpdata_adiff_mp_stencil_] mpdata_adiff.f90:203
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   30[ rax rdx rcx rbx rsi rdi r8-r15 zmm0-zmm15]
+        
+    Routine temporaries
+        Total         :    2397
+            Global    :     490
+            Local     :    1907
+        Regenerable   :     172
+        Spilled       :     273
+        
+    Routine stack
+        Variables     :    7176 bytes*
+            Reads     :     174 [9.15e+04 ~ 14.5%]
+            Writes    :     462 [6.75e+04 ~ 10.7%]
+        Spills        :    2288 bytes*
+            Reads     :     595 [2.03e+04 ~ 3.2%]
+            Writes    :     338 [8.70e+03 ~ 1.4%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: MOD_DATA::VERIFY_DATA
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (MOD_DATA::VERIFY_DATA) [4] mod_data.f90(82,12)
+  -> (88,10) MOD_DATA::MPDATA_ADIFF_TILE_VER
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at mod_data.f90(91,5)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed ANTI dependence between VMAX (98:48) and VMAX (96:13)
+
+   LOOP BEGIN at mod_data.f90(92,5)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #15346: vector dependence: assumed ANTI dependence between VMAX (98:48) and VMAX (96:13)
+
+      LOOP BEGIN at mod_data.f90(93,5)
+         remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+         remark #15346: vector dependence: assumed ANTI dependence between VMAX (98:48) and VMAX (96:13)
+      LOOP END
+   LOOP END
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+mod_data.f90(83,46):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (32, 0)
+mod_data.f90(82,12):remark #34051: REGISTER ALLOCATION : [mod_data_mp_verify_data_] mod_data.f90:82
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   19[ rax rdx rcx rbx rsi rdi r8-r15 zmm0-zmm4]
+        
+    Routine temporaries
+        Total         :     185
+            Global    :      46
+            Local     :     139
+        Regenerable   :      44
+        Spilled       :      21
+        
+    Routine stack
+        Variables     :     248 bytes*
+            Reads     :       9 [8.90e+00 ~ 0.3%]
+            Writes    :      27 [2.50e+01 ~ 0.7%]
+        Spills        :     128 bytes*
+            Reads     :      18 [1.20e+02 ~ 3.4%]
+            Writes    :      17 [6.76e+01 ~ 1.9%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: MOD_DATA::MPDATA_ADIFF_TILE_VER
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (MOD_DATA::MPDATA_ADIFF_TILE_VER) [5] mod_data.f90(113,12)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at mod_data.f90(134,67)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at mod_data.f90(134,67)
+   <Multiversioned v1>
+      remark #25233: Loop multiversioned for stride tests on Assumed shape arrays
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at mod_data.f90(134,67)
+      <Peeled loop for vectorization>
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(134,67)
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(134,67)
+      <Remainder loop for vectorization>
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at mod_data.f90(134,67)
+   <Multiversioned v2>
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at mod_data.f90(134,67)
+      <Peeled loop for vectorization>
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(134,67)
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(134,67)
+      <Remainder loop for vectorization>
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at mod_data.f90(134,72)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at mod_data.f90(134,72)
+   <Multiversioned v1>
+      remark #25233: Loop multiversioned for stride tests on Assumed shape arrays
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at mod_data.f90(134,72)
+      <Peeled loop for vectorization>
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(134,72)
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(134,72)
+      <Remainder loop for vectorization>
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at mod_data.f90(134,72)
+   <Multiversioned v2>
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at mod_data.f90(134,72)
+      <Peeled loop for vectorization>
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(134,72)
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(134,72)
+      <Remainder loop for vectorization>
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at mod_data.f90(134,78)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at mod_data.f90(134,78)
+   <Multiversioned v1>
+      remark #25233: Loop multiversioned for stride tests on Assumed shape arrays
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at mod_data.f90(134,78)
+      <Peeled loop for vectorization>
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(134,78)
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(134,78)
+      <Remainder loop for vectorization>
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at mod_data.f90(134,78)
+   <Multiversioned v2>
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at mod_data.f90(134,78)
+      <Peeled loop for vectorization>
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(134,78)
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(134,78)
+      <Remainder loop for vectorization>
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at mod_data.f90(134,84)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at mod_data.f90(134,84)
+   <Multiversioned v1>
+      remark #25233: Loop multiversioned for stride tests on Assumed shape arrays
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at mod_data.f90(134,84)
+      <Peeled loop for vectorization>
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(134,84)
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(134,84)
+      <Remainder loop for vectorization>
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at mod_data.f90(134,84)
+   <Multiversioned v2>
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at mod_data.f90(134,84)
+      <Peeled loop for vectorization>
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(134,84)
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(134,84)
+      <Remainder loop for vectorization>
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at mod_data.f90(134,87)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at mod_data.f90(134,87)
+   <Multiversioned v1>
+      remark #25233: Loop multiversioned for stride tests on Assumed shape arrays
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at mod_data.f90(134,87)
+      <Peeled loop for vectorization>
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(134,87)
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(134,87)
+      <Remainder loop for vectorization>
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at mod_data.f90(134,87)
+   <Multiversioned v2>
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at mod_data.f90(134,87)
+      <Peeled loop for vectorization>
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(134,87)
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(134,87)
+      <Remainder loop for vectorization>
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at mod_data.f90(134,91)
+<Multiversioned v1>
+   remark #25233: Loop multiversioned for stride tests on Assumed shape arrays
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at mod_data.f90(134,91)
+<Remainder loop for vectorization, Multiversioned v1>
+LOOP END
+
+LOOP BEGIN at mod_data.f90(134,91)
+<Multiversioned v2>
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at mod_data.f90(134,91)
+<Remainder loop for vectorization, Multiversioned v2>
+LOOP END
+
+LOOP BEGIN at mod_data.f90(134,97)
+<Multiversioned v1>
+   remark #25233: Loop multiversioned for stride tests on Assumed shape arrays
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at mod_data.f90(134,97)
+<Remainder loop for vectorization, Multiversioned v1>
+LOOP END
+
+LOOP BEGIN at mod_data.f90(134,97)
+<Multiversioned v2>
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at mod_data.f90(134,97)
+<Remainder loop for vectorization, Multiversioned v2>
+LOOP END
+
+LOOP BEGIN at mod_data.f90(134,101)
+<Multiversioned v1>
+   remark #25233: Loop multiversioned for stride tests on Assumed shape arrays
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at mod_data.f90(134,101)
+<Remainder loop for vectorization, Multiversioned v1>
+LOOP END
+
+LOOP BEGIN at mod_data.f90(134,101)
+<Multiversioned v2>
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at mod_data.f90(134,101)
+<Remainder loop for vectorization, Multiversioned v2>
+LOOP END
+
+LOOP BEGIN at mod_data.f90(134,105)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at mod_data.f90(134,105)
+   <Multiversioned v1>
+      remark #25233: Loop multiversioned for stride tests on Assumed shape arrays
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at mod_data.f90(134,105)
+      <Peeled loop for vectorization>
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(134,105)
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(134,105)
+      <Remainder loop for vectorization>
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at mod_data.f90(134,105)
+   <Multiversioned v2>
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at mod_data.f90(134,105)
+      <Peeled loop for vectorization>
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(134,105)
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(134,105)
+      <Remainder loop for vectorization>
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at mod_data.f90(134,105)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at mod_data.f90(134,105)
+   <Multiversioned v1>
+      remark #25233: Loop multiversioned for stride tests on Assumed shape arrays
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at mod_data.f90(134,105)
+      <Peeled loop for vectorization>
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(134,105)
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(134,105)
+      <Remainder loop for vectorization>
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at mod_data.f90(134,105)
+   <Multiversioned v2>
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at mod_data.f90(134,105)
+      <Peeled loop for vectorization>
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(134,105)
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(134,105)
+      <Remainder loop for vectorization>
+      LOOP END
+   LOOP END
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+mod_data.f90(113,12):remark #34051: REGISTER ALLOCATION : [mod_data_mp_mpdata_adiff_tile_ver_] mod_data.f90:113
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   20[ rax rdx rcx rsi rdi r8-r15 zmm0-zmm6]
+        
+    Routine temporaries
+        Total         :     766
+            Global    :     351
+            Local     :     415
+        Regenerable   :      44
+        Spilled       :     148
+        
+    Routine stack
+        Variables     :      16 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       4 [4.00e+00 ~ 0.0%]
+        Spills        :    1152 bytes*
+            Reads     :     340 [5.19e+02 ~ 4.4%]
+            Writes    :     231 [1.17e+02 ~ 1.0%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: MOD_DATA::DEALLOCATE_DATA
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (MOD_DATA::DEALLOCATE_DATA) [6] mod_data.f90(137,12)
+
+
+    Report from: Code generation optimizations [cg]
+
+mod_data.f90(137,12):remark #34051: REGISTER ALLOCATION : [mod_data_mp_deallocate_data_] mod_data.f90:137
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :    6[ rax rdx rcx rsi rdi r15]
+        
+    Routine temporaries
+        Total         :     249
+            Global    :      15
+            Local     :     234
+        Regenerable   :       0
+        Spilled       :       1
+        
+    Routine stack
+        Variables     :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+        Spills        :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: MOD_DATA::FLUSH_CACHE
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (MOD_DATA::FLUSH_CACHE) [7] mod_data.f90(71,12)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at mod_data.f90(76,10)
+<Peeled loop for vectorization>
+LOOP END
+
+LOOP BEGIN at mod_data.f90(76,10)
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at mod_data.f90(76,10)
+<Remainder loop for vectorization>
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+mod_data.f90(72,42):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (32, 0)
+mod_data.f90(71,12):remark #34051: REGISTER ALLOCATION : [mod_data_mp_flush_cache_] mod_data.f90:71
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   12[ rax rdx rcx rbx rsi rdi r8 r12 r14-r15 zmm0-zmm1]
+        
+    Routine temporaries
+        Total         :      72
+            Global    :      17
+            Local     :      55
+        Regenerable   :       5
+        Spilled       :       4
+        
+    Routine stack
+        Variables     :      72 bytes*
+            Reads     :       3 [2.90e+00 ~ 1.5%]
+            Writes    :      10 [1.00e+01 ~ 5.1%]
+        Spills        :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: mod_data._
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (mod_data._) [8] mod_data.f90(1,8)
+
+
+    Report from: Code generation optimizations [cg]
+
+mod_data.f90(1,8):remark #34051: REGISTER ALLOCATION : [mod_data._] mod_data.f90:1
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :    0[ reg_null]
+        
+    Routine temporaries
+        Total         :       6
+            Global    :       0
+            Local     :       6
+        Regenerable   :       0
+        Spilled       :       0
+        
+    Routine stack
+        Variables     :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+        Spills        :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: mpdata_adiff._
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (mpdata_adiff._) [9] mpdata_adiff.f90(1,8)
+
+
+    Report from: Code generation optimizations [cg]
+
+mpdata_adiff.f90(1,8):remark #34051: REGISTER ALLOCATION : [mpdata_adiff._] mpdata_adiff.f90:1
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :    0[ reg_null]
+        
+    Routine temporaries
+        Total         :       6
+            Global    :       0
+            Local     :       6
+        Regenerable   :       0
+        Spilled       :       0
+        
+    Routine stack
+        Variables     :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+        Spills        :       0 bytes*
+            Reads     :       0 [0.00e+00 ~ 0.0%]
+            Writes    :       0 [0.00e+00 ~ 0.0%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+Begin optimization report for: MOD_DATA::ALLOCATE_INIT_DATA
+
+    Report from: Interprocedural optimizations [ipo]
+
+INLINE REPORT: (MOD_DATA::ALLOCATE_INIT_DATA) [10] mod_data.f90(21,12)
+
+
+    Report from: Loop nest, Vector & Auto-parallelization optimizations [loop, vec, par]
+
+
+LOOP BEGIN at mod_data.f90(47,10)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at mod_data.f90(47,10)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at mod_data.f90(47,10)
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(47,10)
+      <Remainder loop for vectorization>
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at mod_data.f90(48,10)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at mod_data.f90(48,10)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at mod_data.f90(48,10)
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(48,10)
+      <Remainder loop for vectorization>
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at mod_data.f90(49,10)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at mod_data.f90(49,10)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at mod_data.f90(49,10)
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(49,10)
+      <Remainder loop for vectorization>
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at mod_data.f90(50,10)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at mod_data.f90(50,10)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at mod_data.f90(50,10)
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(50,10)
+      <Remainder loop for vectorization>
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at mod_data.f90(51,10)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at mod_data.f90(51,10)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at mod_data.f90(51,10)
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(51,10)
+      <Remainder loop for vectorization>
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at mod_data.f90(52,10)
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at mod_data.f90(52,10)
+<Remainder loop for vectorization>
+LOOP END
+
+LOOP BEGIN at mod_data.f90(53,10)
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at mod_data.f90(53,10)
+<Remainder loop for vectorization>
+LOOP END
+
+LOOP BEGIN at mod_data.f90(54,10)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
+
+   LOOP BEGIN at mod_data.f90(54,10)
+      remark #15542: loop was not vectorized: inner loop was already vectorized
+
+      LOOP BEGIN at mod_data.f90(54,10)
+         remark #15300: LOOP WAS VECTORIZED
+      LOOP END
+
+      LOOP BEGIN at mod_data.f90(54,10)
+      <Remainder loop for vectorization>
+      LOOP END
+   LOOP END
+LOOP END
+
+LOOP BEGIN at mod_data.f90(55,10)
+<Peeled loop for vectorization>
+LOOP END
+
+LOOP BEGIN at mod_data.f90(55,10)
+   remark #15300: LOOP WAS VECTORIZED
+LOOP END
+
+LOOP BEGIN at mod_data.f90(55,10)
+<Remainder loop for vectorization>
+LOOP END
+
+LOOP BEGIN at mod_data.f90(58,5)
+   remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+   remark #15346: vector dependence: assumed FLOW dependence between mydata(I) (60:9) and mydata(I-1) (62:9)
+LOOP END
+
+    Report from: Code generation optimizations [cg]
+
+mod_data.f90(24,28):remark #34000: call to memcpy implemented inline with loads and stores with proven source (alignment, offset): (32, 0), and destination (alignment, offset): (32, 0)
+mod_data.f90(21,12):remark #34051: REGISTER ALLOCATION : [mod_data_mp_allocate_init_data_] mod_data.f90:21
+
+    Hardware registers
+        Reserved     :    2[ rsp rip]
+        Available    :   39[ rax rdx rcx rbx rbp rsi rdi r8-r15 mm0-mm7 zmm0-zmm15]
+        Callee-save  :    6[ rbx rbp r12-r15]
+        Assigned     :   20[ rax rdx rcx rbx rsi rdi r8-r15 zmm0-zmm5]
+        
+    Routine temporaries
+        Total         :     537
+            Global    :     212
+            Local     :     325
+        Regenerable   :     101
+        Spilled       :      77
+        
+    Routine stack
+        Variables     :     152 bytes*
+            Reads     :      14 [1.40e+01 ~ 0.1%]
+            Writes    :      10 [1.00e+01 ~ 0.0%]
+        Spills        :     576 bytes*
+            Reads     :     104 [2.26e+03 ~ 10.4%]
+            Writes    :      96 [1.49e+03 ~ 6.9%]
+    
+    Notes
+    
+        *Non-overlapping variables and spills may share stack space,
+         so the total stack size might be less than this.
+    
+
+===========================================================================
+
+    Report from: Profile guided optimizations [pgo]
+
+
+
+Profile feedback used a statically estimated profile for the following routines:
+
+  File: mod_data.f90
+        mod_data._(1)
+        MOD_DATA::ALLOCATE_INIT_DATA(21)
+        MOD_DATA::FLUSH_CACHE(71)
+        MOD_DATA::VERIFY_DATA(82)
+        MOD_DATA::MPDATA_ADIFF_TILE_VER(113)
+        MOD_DATA::DEALLOCATE_DATA(137)
+
+  File: mpdata_adiff.f90
+        mpdata_adiff._(1)
+        MPDATA_ADIFF::MPDATA_ADIFF_TILE(12)
+        MPDATA_ADIFF::STENCIL(203)
+
+  File: ocean.f90
+        OCEAN(1)
+
+
+  0 out of 10 routine(s) used training profile data for PGO feedback
+  0 out of 10 routine(s) were unable to use training profile data for PGO feedback
+  0 out of 10 routine(s) were unable to find training profile data for PGO feedback
+  10 out of 10 routine(s) used a static estimate profile for PGO feedback
+
+
+
